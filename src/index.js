@@ -2,6 +2,8 @@ require("./database/db");
 require("dotenv").config();
 require("express-async-errors");
 
+const auth = require("./middleware/auth");
+
 const noteRoute = require("./routes/noteRoute");
 const userRoute = require("./routes/userRoute");
 
@@ -14,7 +16,7 @@ app.get("/", (req, res) => {
   res.send("<h1>Home Page</h1>");
 });
 
-app.use("/api/notes", noteRoute);
+app.use("/api/notes", auth, noteRoute);
 app.use("/api/users", userRoute);
 
 app.listen(process.env.PORT);

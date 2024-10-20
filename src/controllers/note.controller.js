@@ -6,12 +6,12 @@ const {
 } = require("../services/noteService");
 
 exports.getNotes = async (req, res) => {
-  const notes = await getNotes(req.query);
+  const notes = await getNotes({ userId: req.user._id, ...req.query });
   res.send(notes);
 };
 
 exports.createNote = async (req, res) => {
-  const note = await createNote(req.body);
+  const note = await createNote({ userId: req.user._id, ...req.body });
   res.status(201).send(note);
 };
 

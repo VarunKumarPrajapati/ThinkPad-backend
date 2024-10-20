@@ -1,12 +1,12 @@
 const Note = require("../models/note");
 
-exports.getNotes = async ({ isArchive = false, isPinned = false }) => {
-  const notes = await Note.find({ isArchive });
+exports.getNotes = async ({ userId, isArchive = false }) => {
+  const notes = await Note.find({ userId, isArchive });
   return notes;
 };
 
-exports.createNote = async ({ title, note }) => {
-  const newNote = await Note.create({ title, note });
+exports.createNote = async ({ userId, title, note }) => {
+  const newNote = await Note.create({ userId, title, note });
   return newNote;
 };
 
