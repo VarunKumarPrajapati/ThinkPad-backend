@@ -3,6 +3,7 @@ require("dotenv").config();
 require("express-async-errors");
 
 const noteRoute = require("./routes/noteRoute");
+const userRoute = require("./routes/userRoute");
 
 const express = require("express");
 const app = express();
@@ -14,5 +15,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/notes", noteRoute);
+app.use("/api/users", userRoute);
 
 app.listen(process.env.PORT);
