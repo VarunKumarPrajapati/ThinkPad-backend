@@ -1,6 +1,7 @@
 require("./database/db");
 require("dotenv").config();
 require("express-async-errors");
+const cors = require("cors");
 
 const auth = require("./middleware/auth");
 
@@ -11,6 +12,12 @@ const express = require("express");
 const app = express();
 
 app.use(express.json());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 app.get("/", (req, res) => {
   res.send("<h1>Home Page</h1>");

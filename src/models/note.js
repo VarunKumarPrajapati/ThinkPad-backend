@@ -6,7 +6,7 @@ const noteSchema = new Schema(
       type: String,
     },
 
-    note: {
+    content: {
       type: String,
     },
 
@@ -18,6 +18,23 @@ const noteSchema = new Schema(
     isPinned: {
       type: Boolean,
       default: false,
+    },
+
+    color: {
+      type: String,
+    },
+
+    background: {
+      type: String,
+    },
+
+    label: {
+      type: String,
+    },
+
+    reminder: {
+      type: Date,
+      default: new Date(),
     },
 
     userId: {
