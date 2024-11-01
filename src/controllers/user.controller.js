@@ -11,14 +11,14 @@ exports.getUser = async (req, res) => {
 
 exports.createUser = async (req, res) => {
   const user = await createUser(req.body);
-  res.status(201).send(user);
+  res.status(201).send();
 };
 
 exports.login = async (req, res) => {
   const user = await login(req.body);
   const token = await user.generateAuthToken();
   res.cookie("session", token, { http: true });
-  res.send(user);
+  res.send();
 };
 
 exports.updateUser = async (req, res) => {

@@ -10,8 +10,8 @@ exports.login = async ({ email, password }) => {
   return user;
 };
 
-exports.updateUser = async ({ _id, username, email, password }) => {
-  await User.updateOne({ _id }, { username, email, password });
+exports.updateUser = async ({ _id, ...data }) => {
+  await User.updateOne({ _id }, data);
 };
 
 exports.deleteUser = async (_id) => {

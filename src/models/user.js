@@ -25,6 +25,11 @@ const userSchema = new Schema(
       required: true,
     },
 
+    avatar: {
+      type: String,
+      default: "none",
+    },
+
     token: {
       type: String,
     },
@@ -43,10 +48,10 @@ userSchema.methods.toJSON = function () {
 
 userSchema.statics.findByCredentials = async ({ email, password }) => {
   const user = await User.findOne({ email });
-  if (!user) throw Unauthorized("Email & password are invalid.");
+  if (!user) throw new Unauthorized("Email & password are invalid.");
 
   const isEqual = await bcrypt.compare(password, user.password);
-  if (!isEqual) throw Unauthorized("Email & password are invalid.");
+  if (!isEqual) throw new Unauthorized("Email & password are invalid.");
 
   return user;
 };
