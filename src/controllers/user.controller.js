@@ -3,6 +3,7 @@ const {
   updateUser,
   login,
   deleteUser,
+  logOut,
 } = require("../services/userService");
 
 exports.getUser = async (req, res) => {
@@ -28,5 +29,12 @@ exports.updateUser = async (req, res) => {
 
 exports.deleteUser = async (req, res) => {
   await deleteUser(req.user._id);
+  res.status(204).send();
+};
+
+exports.logout = async (req, res) => {
+  req.user.token = "";
+  await req.user.save();
+  res.clearCookie("session");
   res.status(204).send();
 };
