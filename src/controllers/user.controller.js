@@ -18,7 +18,7 @@ exports.createUser = async (req, res) => {
 exports.login = async (req, res) => {
   const user = await login(req.body);
   const token = await user.generateAuthToken();
-  res.cookie("session", token, { http: true });
+  res.cookie("session", token, { http: true, sameSite: "None", secure: true });
   res.send();
 };
 
