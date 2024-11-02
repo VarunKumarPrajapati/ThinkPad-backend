@@ -35,6 +35,6 @@ exports.deleteUser = async (req, res) => {
 exports.logout = async (req, res) => {
   req.user.token = "";
   await req.user.save();
-  res.clearCookie("session");
+  res.clearCookie("session", { http: true, sameSite: "None", secure: true });
   res.status(204).send();
 };
