@@ -2,6 +2,7 @@ require("./database/db");
 require("dotenv").config();
 require("express-async-errors");
 const cors = require("cors");
+const cookieParser = require('cookie-parser')
 
 const auth = require("./middleware/auth");
 
@@ -12,6 +13,7 @@ const error = require("./middleware/error");
 const express = require("express");
 const app = express();
 
+app.use(cookieParser())
 app.use(express.json());
 app.use(
   cors({

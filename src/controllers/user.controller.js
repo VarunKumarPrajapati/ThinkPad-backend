@@ -18,7 +18,16 @@ exports.createUser = async (req, res) => {
 exports.login = async (req, res) => {
   const user = await login(req.body);
   const token = await user.generateAuthToken();
-  res.cookie("session", token, { http: true, sameSite: "None", secure: true });
+
+  const tokenOption = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "Strict" : "Lax",
+    maxAge: 15 * 60 * 1000,
+    domain: process.env.DOMAIN,
+    path: "/",
+  };
+  res.cookie("access_token", token, tokenOption);
   res.send();
 };
 
@@ -35,6 +44,10 @@ exports.deleteUser = async (req, res) => {
 exports.logout = async (req, res) => {
   req.user.token = "";
   await req.user.save();
-  res.clearCookie("session", { http: true, sameSite: "None", secure: true });
+  res.clearCookie("access_token", {
+    http: true,
+    sameSite: "None",
+    secure: true,
+  });
   res.status(204).send();
 };
