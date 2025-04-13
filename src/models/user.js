@@ -1,4 +1,3 @@
-require("dotenv").config();
 const { Schema, model } = require("mongoose");
 const { Unauthorized } = require("http-errors");
 const bcrypt = require("bcrypt");
@@ -32,6 +31,11 @@ const userSchema = new Schema(
 
     token: {
       type: String,
+    },
+
+    isVerified: {
+      type: Boolean,
+      default: false,
     },
   },
 

@@ -11,11 +11,14 @@ const {
   logout,
 } = require("../controllers/user.controller");
 
-router.get("/me", auth, getUser);
 router.post("/", createUser);
 router.post("/login", login);
-router.patch("/update/me", auth, updateUser);
-router.delete("/delete/me", auth, deleteUser);
-router.get("/logout", auth, logout);
+
+router.use(auth); // Protect all routes after this middleware
+
+router.get("/me", getUser);
+router.patch("/update/me", updateUser);
+router.delete("/delete/me", deleteUser);
+router.get("/logout", logout);
 
 module.exports = router;

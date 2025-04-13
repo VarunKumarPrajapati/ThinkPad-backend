@@ -6,6 +6,8 @@ const {
   logOut,
 } = require("../services/userService");
 
+// const sendWelcomeMail = require("../emails/services/welcomeService");
+
 exports.getUser = async (req, res) => {
   res.send(req.user);
 };
@@ -13,6 +15,7 @@ exports.getUser = async (req, res) => {
 exports.createUser = async (req, res) => {
   const user = await createUser(req.body);
   res.status(201).send();
+  // sendWelcomeMail({ to: user.email, username: user.username });
 };
 
 exports.login = async (req, res) => {

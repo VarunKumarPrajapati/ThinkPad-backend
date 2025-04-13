@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome to ThinkPad</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9fafb;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 2rem;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #111827;
+    }
+
+    p {
+      color: #374151;
+      line-height: 1.5;
+    }
+
+    .footer {
+      margin-top: 2rem;
+      font-size: 0.875rem;
+      color: #6b7280;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Welcome, <%= username %>!</h1>
+    <p>Thank you for signing up to <strong>ThinkPad</strong>.</p>
+    <p>ThinkPad is your personal space for capturing thoughts, ideas, and notes — anytime, anywhere.</p>
+    <p>We're thrilled to have you on board. 🚀</p>
+    <p>If you have any questions, feel free to reply to this email. Happy note-taking!</p>
+
+    <div class="footer">
+      &copy; <%= new Date().getFullYear() %> ThinkPad. All rights reserved.
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,8 +1,7 @@
-require("./database/db");
 require("dotenv").config();
 require("express-async-errors");
 const cors = require("cors");
-const cookieParser = require('cookie-parser')
+const cookieParser = require("cookie-parser");
 
 const auth = require("./middleware/auth");
 
@@ -30,4 +29,5 @@ app.use("/api/notes", auth, noteRoute);
 app.use("/api/users", userRoute);
 app.use(error);
 
+require("./database/db");
 app.listen(process.env.PORT);
