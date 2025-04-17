@@ -1,9 +1,8 @@
-const { registerUser, login } = require("../services/authService");
+const { registerUser, login, verifyEmail } = require("../services/authService");
 
 exports.registerUser = async (req, res) => {
-  const user = await registerUser(req.body);
+  await registerUser(req.body);
   res.status(201).send();
-  // sendWelcomeMail({ to: user.email, username: user.username });
 };
 
 exports.login = async (req, res) => {
@@ -33,5 +32,10 @@ exports.logout = async (req, res) => {
     sameSite: process.env.NODE_ENV === "production" ? "Strict" : "Lax",
     secure: process.env.NODE_ENV === "production",
   });
+  res.status(204).send();
+};
+
+exports.verifyEmail = async (req, res) => {
+  await verifyEmail(req.query.token);
   res.status(204).send();
 };

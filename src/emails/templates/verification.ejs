@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify Your ThinkPad Account</title>
+  <style>
+    /* Reset styles */
+    body,
+    table,
+    td,
+    p,
+    a,
+    li,
+    blockquote {
+      -ms-text-size-adjust: 100%;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      width: 100% !important;
+      line-height: 1.5;
+      color: #333333;
+      background-color: #f7f7f7;
+    }
+
+    table {
+      border-spacing: 0;
+      border-collapse: collapse;
+      mso-table-lspace: 0pt;
+      mso-table-rspace: 0pt;
+    }
+
+    /* Main container */
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    /* Modern Header styles */
+    .header {
+      background-color: #0066cc;
+      background-image: linear-gradient(135deg, #0066cc, #0099ff);
+      padding: 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header-inner {
+      position: relative;
+      padding: 32px 25px;
+      z-index: 2;
+    }
+
+    .header-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.1;
+      z-index: 1;
+      background-image: radial-gradient(circle at 70% 20%, rgba(255, 255, 255, 0.3) 0%, rgba(0, 0, 0, 0) 60%);
+    }
+
+    .logo {
+      font-size: 30px;
+      font-weight: 600;
+      color: #ffffff;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    }
+
+    .logo-accent {
+      color: #ffffff;
+      font-weight: 300;
+      font-size: 16px;
+      display: block;
+      margin-top: 4px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    /* Body styles */
+    .email-body {
+      padding: 35px;
+      background-color: #ffffff;
+    }
+
+    .greeting {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #0066cc;
+    }
+
+    .content {
+      margin-bottom: 25px;
+      line-height: 1.7;
+      color: #444444;
+    }
+
+    /* Button styles */
+    .button-container {
+      text-align: center;
+      margin: 35px 0;
+    }
+
+    .verify-button {
+      display: inline-block;
+      background-color: #0066cc;
+      background-image: linear-gradient(to right, #0066cc, #0099ff);
+      color: #ffffff !important;
+      font-weight: bold;
+      text-decoration: none;
+      padding: 14px 32px;
+      border-radius: 6px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s;
+    }
+
+    .button-fallback {
+      display: block;
+      margin-top: 20px;
+      font-size: 12px;
+      color: #666666;
+    }
+
+    /* Footer styles */
+    .footer {
+      background-color: #f9f9f9;
+      padding: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: #777777;
+      border-top: 1px solid #eeeeee;
+    }
+
+    .footer a {
+      color: #0066cc;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <td align="center" style="padding: 30px 0;">
+        <table class="container" width="600" cellpadding="0" cellspacing="0" border="0">
+          <!-- Modern Header -->
+          <tr>
+            <td class="header">
+              <div class="header-bg"></div>
+              <div class="header-inner">
+                <div class="logo">ThinkPad<span class="logo-accent">Verification</span></div>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Body - This will be variable -->
+          <tr>
+            <td class="email-body">
+              <div class="greeting">Verify Your Email Address</div>
+              <div class="content">
+                <p>Hello, <%= username %></p>
+                <p>Thank you for signing up for ThinkPad! We're excited to have you on board.</p>
+                <p>Please click the button below to verify your email address and activate your account:</p>
+              </div>
+              <div class="button-container">
+                <a href=<%=verificationUrl %> class="verify-button">Verify Email
+                  Address</a>
+                <div class="button-fallback">
+                  If the button doesn't work, copy and paste this link into your browser:<br>
+                  <a href="<%= verificationUrl %>">
+                    <%= verificationUrl %>
+                  </a>
+                </div>
+              </div>
+              <div class="content">
+                <p>This verification link will expire in 24 hours.</p>
+                <p>If you did not create an account, you can safely ignore this email.</p>
+                <p>Best regards,<br>The ThinkPad Team</p>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td class="footer">
+              <div>
+                &copy; 2025 ThinkPad. All rights reserved.
+              </div>
+              <div>
+                <p>
+                  For questions or support, contact us at:<br>
+                  <a href="mailto:testrobber@gmail.com">testrobber@gmail.com</a>
+                </p>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+
+</html>

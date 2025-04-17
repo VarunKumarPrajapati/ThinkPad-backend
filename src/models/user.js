@@ -37,6 +37,9 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    
+    emailVerificationToken: String,
+    emailVerificationTokenExpires: Date,
   },
 
   { timestamps: true }
@@ -65,6 +68,13 @@ userSchema.methods.generateAuthToken = async function () {
   const token = jwt.sign({ _id }, process.env.SECRET_KEY);
   this.token = token;
   await this.save();
+  return token;
+};
+
+userSchema.methods.generateVerifyMailToken = async function () {
+  const _id = this._id.toString();
+  const token = jwt.sign({ _id }, process.env.SECRET_KEY);
+
   return token;
 };
 
