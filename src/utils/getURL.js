@@ -5,9 +5,9 @@ function getFrontendUrl() {
   return `${protocol}${FRONTEND_DOMAIN}`;
 }
 
-function getBackendUrl() {
-  const protocol = NODE_ENV === "production" ? "https://" : "http://";
-  return `${protocol}${DOMAIN}`;
-}
+// function getBackendUrl() {
+//   const protocol = NODE_ENV === "production" ? "https://" : "http://";
+//   return `${protocol}${DOMAIN}`;
+// }
 
-module.exports = { getFrontendUrl, getBackendUrl };
+module.exports = { getFrontendUrl };
