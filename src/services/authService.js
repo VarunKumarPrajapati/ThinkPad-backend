@@ -28,8 +28,8 @@ exports.registerUser = async ({ username, email, password }) => {
     },
   });
 
-  sendVerificationMail({ to: user.email, token, username: user.username });
-  sendWelcomeMail({ to: user.email, username: user.username });
+  await sendWelcomeMail({ to: user.email, username: user.username });
+  await sendVerificationMail({ to: user.email, token, username: user.username });
   return user;
 };
 
