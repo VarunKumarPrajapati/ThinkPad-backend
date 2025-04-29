@@ -15,11 +15,8 @@ exports.login = async (req, res) => {
   const { token } = await login(req.body);
 
   const tokenOption = {
-    // domain: process.env.DOMAIN,
     httpOnly: true,
-    maxAge: 15 * 60 * 1000,
-    path: "/",
-    sameSite: process.env.NODE_ENV === "production" ? "Strict" : "Lax",
+    sameSite: "None",
     secure: process.env.NODE_ENV === "production",
   };
 
@@ -31,10 +28,8 @@ exports.logout = async (req, res) => {
   req.user.token = "";
   await req.user.save();
   res.clearCookie("access_token", {
-    // domain: process.env.DOMAIN,
     httpOnly: true,
-    path: "/",
-    sameSite: process.env.NODE_ENV === "production" ? "Strict" : "Lax",
+    sameSite: "None",
     secure: process.env.NODE_ENV === "production",
   });
   res.status(204).send();
