@@ -15,8 +15,7 @@ exports.registerUser = async ({ username, email, password }) => {
 
   if (user) throw new Conflict("Email already in use.");
 
-  const token = this.generateVerificationToken();
-  const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+  const { token, hashedToken } = this.generateVerificationToken();
 
   user = await User.create({
     username,
@@ -24,12 +23,16 @@ exports.registerUser = async ({ username, email, password }) => {
     password,
     emailVerification: {
       token: hashedToken,
-      expiry: new Date(Date.now() + 10 * 60 * 1000),
+      expiry: new Date(Date.now() + 1 * 60 * 1000),
     },
   });
 
   await sendWelcomeMail({ to: user.email, username: user.username });
-  await sendVerificationMail({ to: user.email, token, username: user.username });
+  await sendVerificationMail({
+    to: user.email,
+    token,
+    username: user.username,
+  });
   return user;
 };
 
@@ -38,6 +41,18 @@ exports.login = async ({ email, password }) => {
   const token = await user.generateAuthToken();
 
   if (!user.isVerified) {
+    if (!(user?.emailVerification?.expiry > new Date())) {
+      const { token, hashedToken } = this.generateVerificationToken();
+
+      user.emailVerification = {
+        token: hashedToken,
+        expiry: new Date(Date.now() + 1 * 60 * 1000),
+      };
+
+      await user.save();
+      await sendVerificationMail({ to: user.email, token });
+      throw new Unauthorized("Email is not verified & Verification Mail sent.");
+    }
     throw new Unauthorized("Email is not verified");
   }
 
@@ -62,20 +77,22 @@ exports.verifyEmail = async (token) => {
 };
 
 exports.generateVerificationToken = () => {
-  return crypto.randomBytes(32).toString("hex");
+  const token = crypto.randomBytes(32).toString("hex");
+  const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+  return { token, hashedToken };
 };
 
 exports.forgotPassword = async ({ email }) => {
   const user = await User.findOne({ email });
   if (!user) throw new NotFound("User not found with given email");
 
-  const token = this.generateVerificationToken();
+  const { token, hashedToken } = this.generateVerificationToken();
 
-  const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
   user.resetPassword = {
     token: hashedToken,
     expiry: new Date(Date.now() + 10 * 60 * 1000),
   };
+  
   await user.save();
   await sendResetPasswordMail({ to: email, token });
 };

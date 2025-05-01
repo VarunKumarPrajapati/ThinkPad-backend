@@ -13,11 +13,11 @@ exports.registerUser = async (req, res) => {
 
 exports.login = async (req, res) => {
   const { token } = await login(req.body);
-
+  const isProd = process.env.NODE_ENV === "production";
   const tokenOption = {
     httpOnly: true,
-    sameSite: "None",
-    secure: process.env.NODE_ENV === "production",
+    sameSite: isProd ? "None" : "Lax",
+    secure: isProd,
   };
 
   res.cookie("access_token", token, tokenOption);
@@ -27,11 +27,13 @@ exports.login = async (req, res) => {
 exports.logout = async (req, res) => {
   req.user.token = "";
   await req.user.save();
-  res.clearCookie("access_token", {
+  const isProd = process.env.NODE_ENV === "production";
+  const tokenOption = {
     httpOnly: true,
-    sameSite: "None",
-    secure: process.env.NODE_ENV === "production",
-  });
+    sameSite: isProd ? "None" : "Lax",
+    secure: isProd,
+  };
+  res.clearCookie("access_token", tokenOption);
   res.status(204).send();
 };
 

@@ -1,7 +1,7 @@
 const { HttpError } = require("http-errors");
 
 module.exports = (err, req, res, next) => {
-  console.error(err)
+  console.error(err);
   if (err instanceof HttpError) {
     res.status(err.status).send({ error: err.name, message: err.message });
   }
