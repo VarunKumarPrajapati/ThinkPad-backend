@@ -15,9 +15,18 @@ const app = express();
 
 app.use(cookieParser());
 app.use(express.json());
+
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://varun-thinkpad.vercel.app",
+];
+
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://varun-thinkpad.vercel.app"],
+    origin: (origin, cb) => {
+      if (!origin || allowedOrigins.includes(origin)) cb(null, true);
+      else cb(new Error("Block by CORS:" + origin));
+    },
     credentials: true,
   })
 );
