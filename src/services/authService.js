@@ -23,7 +23,7 @@ exports.registerUser = async ({ username, email, password }) => {
     password,
     emailVerification: {
       token: hashedToken,
-      expiry: new Date(Date.now() + 1 * 60 * 1000),
+      expiry: new Date(Date.now() + 24 * 60 * 1000),
     },
   });
 
@@ -46,7 +46,7 @@ exports.login = async ({ email, password }) => {
 
       user.emailVerification = {
         token: hashedToken,
-        expiry: new Date(Date.now() + 1 * 60 * 1000),
+        expiry: new Date(Date.now() + 24 * 60 * 1000),
       };
 
       await user.save();
@@ -90,9 +90,9 @@ exports.forgotPassword = async ({ email }) => {
 
   user.resetPassword = {
     token: hashedToken,
-    expiry: new Date(Date.now() + 10 * 60 * 1000),
+    expiry: new Date(Date.now() + 15 * 60 * 1000),
   };
-  
+
   await user.save();
   await sendResetPasswordMail({ to: email, token });
 };
