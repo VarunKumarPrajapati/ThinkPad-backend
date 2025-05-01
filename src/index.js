@@ -10,26 +10,16 @@ const userRoute = require("./routes/userRoute");
 const authRoute = require("./routes/authRoute");
 const error = require("./middleware/error");
 
+const corsOptions = require("./config/cors");
+
 const express = require("express");
 const app = express();
 
 app.use(cookieParser());
 app.use(express.json());
 
-const allowedOrigins = [
-  "http://localhost:3000",
-  "https://varun-thinkpad.vercel.app",
-];
-
-app.use(
-  cors({
-    origin: (origin, cb) => {
-      if (!origin || allowedOrigins.includes(origin)) cb(null, true);
-      else cb(new Error("Block by CORS:" + origin));
-    },
-    credentials: true,
-  })
-);
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 
 app.get("/", (req, res) => {
   res.send("<h1>Home Page</h1>");
