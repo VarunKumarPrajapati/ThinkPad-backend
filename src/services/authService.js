@@ -94,7 +94,7 @@ exports.forgotPassword = async ({ email }) => {
   };
 
   await user.save();
-  await sendResetPasswordMail({ to: email, token });
+  await sendResetPasswordMail({ to: email, token, username: user.username });
 };
 
 exports.resetPassword = async ({ password, token }) => {

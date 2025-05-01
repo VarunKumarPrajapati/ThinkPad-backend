@@ -1,17 +1,18 @@
-const { getFrontendUrl } = require('../../utils/getURL');
-const { sendMail } = require('../emailService');
+const { getFrontendUrl } = require("../../utils/getURL");
+const { sendMail } = require("../emailService");
 
-async function sendResetPasswordMail({ to, token }) {
-  const url = `${getFrontendUrl()}/reset-password/${token}`
+async function sendResetPasswordMail({ to, token, username }) {
+  const url = `${getFrontendUrl()}/reset-password/${token}`;
 
   return await sendMail({
     to,
-    subject: 'Reset Your Password',
-    templateName: 'resetPassword',
+    subject: "Reset Your Password",
+    templateName: "resetPassword",
     data: {
-      url
+      url,
+      username,
     },
-  })
+  });
 }
 
 module.exports = sendResetPasswordMail;
