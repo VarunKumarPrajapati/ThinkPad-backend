@@ -1,7 +1,7 @@
 const Note = require("../models/note");
 
 exports.getNotes = async (data) => {
-  const notes = await Note.find(data);
+  const notes = await Note.find(data).sort({ updatedAt: -1 });
   return notes;
 };
 
@@ -10,10 +10,10 @@ exports.createNote = async (data) => {
   return newNote;
 };
 
-exports.updateNote = async ({ _id, ...rest }) => {
-  if (rest.isArchive) rest.isPinned = false;
-  if (rest.isPinned) rest.isArchive = false;
-  await Note.updateOne({ _id }, rest);
+exports.updateNote = async (_id, data) => {
+  if (data.isArchive) data.isPinned = false;
+  if (data.isPinned) data.isArchive = false;
+  await Note.updateOne({ _id }, data);
 };
 
 exports.deleteNote = async (_id) => {

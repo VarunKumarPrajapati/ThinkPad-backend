@@ -16,11 +16,11 @@ exports.createNote = async (req, res) => {
 };
 
 exports.updateNote = async (req, res) => {
-  const updatedNote = await updateNote(req.body);
-  res.send(updatedNote);
+  await updateNote(req.params.id, req.body);
+  res.status(204).send();
 };
 
 exports.deleteNote = async (req, res) => {
-  await deleteNote(req.body._id);
+  await deleteNote(req.params.id);
   res.status(204).send();
 };

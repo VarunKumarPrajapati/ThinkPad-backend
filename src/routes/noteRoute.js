@@ -9,7 +9,7 @@ const {
 
 router.get("/", getNotes);
 router.post("/create", createNote);
-router.patch("/update", updateNote);
-router.delete("/delete", deleteNote);
+router.patch("/update/:id", updateNote);
+router.delete("/delete/:id", deleteNote);
 
 module.exports = router;
