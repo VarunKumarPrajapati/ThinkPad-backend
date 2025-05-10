@@ -47,6 +47,18 @@ const noteSchema = new Schema(
   { timestamps: true }
 );
 
+noteSchema.methods.toJSON = function () {
+  const note = this.toObject();
+  
+  delete note._id;
+  delete note.__v;
+  delete note.userId;
+  delete note.createdAt;
+  delete note.updatedAt;
+
+  return note;
+};
+
 const Note = model("Note", noteSchema);
 
 module.exports = Note;
