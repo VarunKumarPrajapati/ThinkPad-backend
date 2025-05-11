@@ -50,7 +50,6 @@ const noteSchema = new Schema(
 noteSchema.methods.toJSON = function () {
   const note = this.toObject();
   
-  delete note._id;
   delete note.__v;
   delete note.userId;
   delete note.createdAt;
