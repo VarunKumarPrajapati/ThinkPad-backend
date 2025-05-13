@@ -3,6 +3,7 @@ const {
   createNote,
   updateNote,
   deleteNote,
+  getDistinctColors,
 } = require("../services/noteService");
 
 exports.getNotes = async (req, res) => {
@@ -23,4 +24,9 @@ exports.updateNote = async (req, res) => {
 exports.deleteNote = async (req, res) => {
   await deleteNote(req.params.id);
   res.status(204).send();
+};
+
+exports.getDistinctNoteColors = async (req, res) => {
+  const colors = await getDistinctColors(req.user._id);
+  res.send(colors);
 };

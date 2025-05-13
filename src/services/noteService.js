@@ -23,3 +23,8 @@ exports.updateNote = async (_id, data) => {
 exports.deleteNote = async (_id) => {
   await Note.deleteOne({ _id });
 };
+
+exports.getDistinctColors = async (userId) => {
+  const colors = await Note.distinct("color", { userId });
+  return colors;
+};
